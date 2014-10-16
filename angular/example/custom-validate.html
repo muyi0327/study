@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>第一个例子</title>
+    <script src="../../bower_components/angularjs/angular.min.js"></script>
+
+    <style>
+        input.ng-invalid {
+            border: 1px solid red;
+        }
+
+        input.ng-valid {
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body ng-controller="signupCtrl">
+<form name="signup_form" novalidate ng-submit="signupForm()">
+    <fieldset>
+        <legend>Signup</legend>
+        <label>Your name</label>
+        <input type="text"
+               placeholder="Name"
+               name="name"
+               ng-model="signup.name"
+               ng-minlength="3"
+               ng-maxlength="20" required/>
+
+        <input type="number" placeholder="Age" name="age" ng-model="signup.age" three-to-ten>
+
+        <button type="submit" class="button radius">Submit</button>
+    </fieldset>
+</form>
+<p>{{signup.name}}</p>
+<p>{{signup.age}}</p>
+
+<script>
+
+    angular.module('MyApp',[])
+            .controller('signupCtrl', function ($scope) {
+                $scope.signup = {
+                    name: '',
+                    age: ''
+                }
+
+                $scope.submitted = false;
+                $scope.signupForm = function() {
+                    if ($scope.signup_form.$valid) {
+                        // 正常提交
+                    } else {
+                        $scope.signup_form.submitted = true;
+                    }
+                }
+            })
+            .directive('threeToTen', function () {
+                return {
+                    require: '?ngModel',
+                    link: function (scope, ele, attr, ngModel) {
+                        if (!ngModel) {
+                            return;
+                        }
+
+                        ngModel.$parsers.unshift(function (viewValue) {
+                            console.log(viewValue);
+                            var n = parseInt(viewValue);
+
+                            if (n >= 3 && n <= 10) {
+                                ngModel.$setValidity('threeToTen', true);
+                                return viewValue;
+                            } else {
+                                ngModel.$setValidity('threeToTen', false);
+                                return undefined;
+                            }
+                        });
+                    }
+                }
+            });
+
+</script>
+</body>
+</html>

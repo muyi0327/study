@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>js面向对象编程与开发</title>
+</head>
+<body>
+<script>
+    var animal = new Object();
+
+    animal.name = "dog";
+    animal.leg = 4;
+    animal.color = 'yellow';
+
+    animal.say = function(){
+        console.log(this.name + ':wang wang!');
+    }
+
+    animal.say();
+
+
+    var person = {
+        name : 'jack',
+        leg : 2,
+        color : 'yellow',
+        say : function(){
+            console.log(this.name + ' say: I like ' + this.color);
+        }
+    }
+
+    person.say();
+
+
+    function Class1(name, leg, color){
+        var o = new Object();
+        o.name = name;
+        o.leg = leg;
+        o.color = color;
+        o.say = function(){
+            console.log(this.name + ' say: I like ' + this.color);
+        }
+        return o;
+    }
+
+    var cat = Class1('fatcat', 4, 'black');
+
+    cat.say();
+
+    console.log(cat instanceof Class1); // false
+
+    function Class2(name, leg, color){
+        this.name = name;
+        this.leg = leg;
+        this.color = color;
+        this.say = function(){
+            console.log(this.name + ' say: I like ' + this.color);
+        }
+    }
+
+    var dog = new Class2('fatDog', 4, 'white');
+
+    dog.say();
+
+    console.log(dog instanceof Class2); // true
+
+
+</script>
+</body>
+</html>
