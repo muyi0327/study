@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>第一个例子</title>
+    <script src="../../bower_components/angularjs/angular.min.js"></script>
+</head>
+<body ng-app="myApp" class="ng-scope">
+<div>
+    <my-directive></my-directive>
+
+    <div my-directive></div>
+
+    <div class="my-directive"></div>
+
+    <!--directive : my-directive-->
+    <div></div>
+</div>
+<script>
+    angular.module('myApp', [])
+            .directive('myDirective', function () {
+                return {
+                    restrict: 'EACM',
+                    //replace: true,
+                    template: '<a href="http://www.baidu.com">Click me to go to Baidu</a>'
+                };
+            });
+</script>
+</body>
+</html>

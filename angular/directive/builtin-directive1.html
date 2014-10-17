@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ng-include</title>
+    <script src="../../bower_components/angularjs/angular.min.js"></script>
+</head>
+<body ng-app="myApp" class="ng-scope">
+<div ng-include = "'../tmpl/myTemplate.html'" ng-controller="myController"></div>
+<script>
+    angular.module('myApp', [])
+            .controller('myController', function($scope){
+                $scope.myProperty = 'hello world!!';
+            });
+</script>
+</body>
+</html>
