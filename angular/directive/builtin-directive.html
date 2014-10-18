@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>属性数据</title>
+    <script src="../../bower_components/angularjs/angular.min.js"></script>
+</head>
+<body ng-app="myApp" class="ng-scope">
+<input type="text" ng-model="someProperty" placeholder="TypetoEnable">
+<button ng-model="button" ng-disabled="!someProperty">AButton</button>
+
+<textarea ng-disabled="isDisabled">Wait{{i}}seconds</textarea>
+<script>
+    angular.module('myApp', [])
+            .run(function($rootScope){
+                $rootScope.isDisabled = true;
+                $rootScope.i = 5;
+
+                var timmer = setInterval(function(){
+                    $rootScope.i--;
+                    if (!$rootScope.i){
+                        $rootScope.isDisabled = false;
+                        clearInterval(timmer);
+                    }
+                    $rootScope.$apply();
+                }, 1000);
+            });
+</script>
+</body>
+</html>

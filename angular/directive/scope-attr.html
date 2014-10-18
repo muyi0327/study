@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>属性数据</title>
+    <script src="../../bower_components/angularjs/angular.min.js"></script>
+</head>
+<body ng-app="myApp" class="ng-scope">
+<div my-directive
+     my-url="http://google.com"
+     my-link-text="Click me to go to Google">
+</div>
+<script>
+    angular.module('myApp', [])
+            .directive('myDirective', function () {
+                return {
+                    restrict: 'A',
+                    replace: true,
+                    scope: {
+                        myUrl: '@',
+                        myLinkText: '@'
+                    },
+                    template: '<a href="{{myUrl}}">' + '{{myLinkText}}</a>'
+                }
+            });
+</script>
+</body>
+</html>

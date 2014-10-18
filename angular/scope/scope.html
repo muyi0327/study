@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>属性数据</title>
+    <script src="../../bower_components/angularjs/angular.min.js"></script>
+</head>
+<body ng-app="myApp" class="ng-scope">
+<div ng-controller="SomeController">
+    {{ someBareValue }}
+    <button ng-click="someAction()">Communicate to child</button>
+    <div ng-controller="ChildController">
+        {{ someBareValue }}
+        <button ng-click="childAction()">Communicate to parent</button>
+    </div>
+</div>
+<script>
+    angular.module('myApp', [])
+            .controller('SomeController', function ($scope) {
+                // 反模式，裸值abc
+                $scope.someBareValue = 'hello computer';
+                // 设置 $scope 本身的操作，这样没问题
+                $scope.someAction = function () {
+                    // 在SomeController和ChildController中设置{{ someBareValue }}
+                    $scope.someBareValue = 'hello human, from parent';
+                };
+            })
+            .controller('ChildController', function ($scope) {
+                $scope.childAction = function () {
+                    // 在ChildController中设置{{ someBareValue }}
+                    $scope.someBareValue = 'hello human, from child';
+                };
+            });
+</script>
+</body>
+</html>
