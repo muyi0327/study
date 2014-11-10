@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>第一个例子</title>
+    <script src="../../bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="myApp" class="ng-scope">
+<div sidebox title="Links">
+    <ul>
+        <li>First link</li>
+        <li>Second link</li>
+    </ul>
+</div>
+
+<div sidebox title="TagCloud">
+    <ul class="tagcloud">
+        <li><a href="">Graphics</a></li>
+        <li><a href="">AngularJS</a></li>
+        <li><a href="">D3</a></li>
+        <li><a href="">Front-end</a></li>
+        <li><a href="">Startup</a></li>
+    </ul>
+</div>
+<script>
+    angular.module('myApp', [])
+            .directive('sidebox', function () {
+                return {
+                    restrict: 'EACM',
+                    transclude : true,
+                    scope : {
+                        title : '@'
+                    },
+                    //replace: true,
+                    template: '<div><h2>{{title}}</h2><span ng-transclude></span></div>'
+                };
+            });
+</script>
+</body>
+</html>
