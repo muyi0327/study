@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>grid布局</title>
+    <style>
+        #grid{
+            display: grid;
+            background: orange;
+            grid-definition-columns: auto minmax(min-content, 1fr);
+            grid-definition-rows: auto minmax(min-content, 1fr) auto;
+        }
+    </style>
+</head>
+<body>
+<div id="grid">
+    <div id="title">Game Title</div>
+    <div id="score">Score</div>
+    <div id="stats">Stats</div>
+    <div id="board">Board</div>
+    <div id="controls">Controls</div>
+</div>
+</body>
+</html>
