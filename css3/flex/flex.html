@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>flex</title>
+    <style>
+        .container{
+            display: -webit-flex;
+            display: -moz-flex;
+            display: flex;
+            border: 2px green solid;
+        }
+
+        .clu1, .clu2, .clu3{border-right: 2px solid yellowgreen;height: 150px;overflow: hidden}
+        .clu1{
+            width: 200px;
+            -webkit-flex:initial;
+            flex: initial;
+            min-width: 100px;
+        }
+
+        .clu2{
+            width: 200px;
+            -webkit-flex:none;
+            flex: none;
+        }
+
+        .clu3{
+            -webkit-flex:1.0;
+            flex: 1.0;
+        }
+
+        .clu4{
+            -webkit-flex:2.0;
+            flex: 2.0;
+        }
+    </style>
+</head>
+<body>
+<section class="container">
+    <article class="clu1">最小宽度为100px，默认200px</article>
+    <article class="clu2">固定宽度不参于flex计算</article>
+    <article class="clu3">剩余的1/3</article>
+    <article class="clu4">剩余的2/3</article>
+</section>
+</body>
+</html>
