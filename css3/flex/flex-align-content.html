@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>flex测试align-content</title>
+    <style>
+        .flex-container {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            width: 240px;
+            height: 340px;
+            background-color: Silver;
+            margin: 15px 0;
+        }
+
+        .flex-item {
+            background-color: DeepSkyBlue;
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+        }
+
+        .ac-center{
+            -webkit-align-content: center;
+            align-content: center;
+        }
+
+        .ac-flex-end{
+            -webkit-align-content: flex-end;
+            align-content: flex-end;
+        }
+
+        .ac-space-between{
+            -webkit-align-content: space-between;
+            align-content: space-between;
+        }
+
+        .ac-space-around{
+            -webkit-align-content: space-around;
+            align-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    flex-start
+    <div class="flex-container">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+        <div class="flex-item">flex item 3</div>
+    </div>
+
+    center
+    <div class="flex-container ac-center">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+        <div class="flex-item">flex item 3</div>
+    </div>
+
+    flex-end
+    <div class="flex-container ac-flex-end">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+        <div class="flex-item">flex item 3</div>
+    </div>
+
+    space-between
+    <div class="flex-container ac-space-between">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+        <div class="flex-item">flex item 3</div>
+    </div>
+
+    space-around
+    <div class="flex-container ac-space-around">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+        <div class="flex-item">flex item 3</div>
+    </div>
+</body>
+</html>

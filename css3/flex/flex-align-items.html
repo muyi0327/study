@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>flex测试一</title>
+    <style>
+        .flex-container {
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21–28, Safari 6.1+ */
+            display: flex;          /* NEW: IE11, Chrome 29+, Opera 12.1+, Firefox 22+ */
+            width: 300px;
+            height: 240px;
+            background-color: Silver;
+            margin: 15px 0;
+        }
+
+        .flex-item {
+            background-color: DeepSkyBlue;
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+        }
+
+        .ai-center{
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .ai-flex-end{
+            webkit-box-align: flex-end;
+            -ms-flex-align: flex-end;
+            -webkit-align-items: flex-end;
+            align-items: flex-end;
+        }
+
+        .ai-baseline{
+            webkit-box-align: baseline;
+            -ms-flex-align: baseline;
+            -webkit-align-items: baseline;
+            align-items: baseline;
+        }
+
+        .ai-stretch{
+            webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+            -webkit-align-items: stretch;
+            align-items: stretch;
+        }
+    </style>
+</head>
+<body>
+    flex-start
+    <div class="flex-container">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+    </div>
+
+    center
+    <div class="flex-container ai-center">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+    </div>
+
+    flex-end
+    <div class="flex-container ai-flex-end">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+    </div>
+
+    baseline
+    <div class="flex-container ai-baseline">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+    </div>
+
+    stretch
+    <div class="flex-container ai-stretch">
+        <div class="flex-item">flex item 1</div>
+        <div class="flex-item">flex item 2</div>
+    </div>
+</body>
+</html>

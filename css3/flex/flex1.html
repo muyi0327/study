@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>flex测试一</title>
+    <title>flex测试1</title>
     <style>
         .flex-container {
             display: -webkit-flex;
@@ -10,66 +10,34 @@
             width: 300px;
             height: 240px;
             background-color: Silver;
-            margin: 15px 0;
         }
 
         .flex-item {
             background-color: DeepSkyBlue;
-            width: 100px;
-            height: 100px;
             margin: 5px;
         }
 
-        .jc-center{
-            -webkit-justify-content: center;
-            justify-content: center;
+        .item1 {
+            -webkit-flex: 2;
+            flex: 2;
         }
 
-        .jc-flex-end{
-            -webkit-justify-content: flex-end;
-            justify-content: flex-end;
+        .item2 {
+            -webkit-flex: 1;
+            flex: 1;
         }
 
-        .jc-space-between{
-            -webkit-justify-content: space-between;
-            justify-content: space-between;
-        }
-
-        .jc-space-around{
-            -webkit-justify-content: space-around;
-            justify-content: space-around;
+        .item3 {
+            -webkit-flex: 1;
+            flex: 1;
         }
     </style>
 </head>
 <body>
-    flex-start
-    <div class="flex-container">
-        <div class="flex-item">flex item 1</div>
-        <div class="flex-item">flex item 2</div>
-    </div>
-
-    center
-    <div class="flex-container jc-center">
-        <div class="flex-item">flex item 1</div>
-        <div class="flex-item">flex item 2</div>
-    </div>
-
-    flex-end
-    <div class="flex-container jc-flex-end">
-        <div class="flex-item">flex item 1</div>
-        <div class="flex-item">flex item 2</div>
-    </div>
-
-    space-between
-    <div class="flex-container jc-space-between">
-        <div class="flex-item">flex item 1</div>
-        <div class="flex-item">flex item 2</div>
-    </div>
-
-    space-around
-    <div class="flex-container jc-space-around">
-        <div class="flex-item">flex item 1</div>
-        <div class="flex-item">flex item 2</div>
-    </div>
+<div class="flex-container">
+    <div class="flex-item item1">flex: 2</div>
+    <div class="flex-item item2">flex: 1</div>
+    <div class="flex-item item3">flex: 1</div>
+</div>
 </body>
 </html>
