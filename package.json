@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/muyi0327/study/issues"
   },
-  "homepage": "https://github.com/muyi0327/study"
+  "homepage": "https://github.com/muyi0327/study",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-sass": "^1.1.0"
+  }
 }
