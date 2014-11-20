@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .container {
+            width: 100%;
+            height: 50px;
+            background: orange;
+            overflow: hidden;
+        }
+
+        ul, li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        li {
+            color: #fff;
+            font: normal 14px/50px 'microsoft yahei';
+        }
+    </style>
+    <script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function Scroll(container, opt) {
+                if (!(this instanceof Scroll)) {
+                    return new Scroll(container);
+                }
+                opt = opt || {};
+                this.container = typeof container === 'string' ? $(container) : container;
+                this.content = this.container.find('> ul');
+                this.lists = this.container.find('> ul > li');
+                this.size = this.lists.size();
+                this.H = this.container.height();
+                this.time = opt.time || 3000;
+                this.init();
+            }
+
+            Scroll.prototype = {
+                constructor: Scroll,
+                init: function () {
+                    var that = this;
+                    this.container.css('overflow', 'hidden');
+                    this.container.mouseenter(function () {
+                        that.stop();
+                    }).mouseleave(function () {
+                        that.start();
+                    });
+                },
+                start: function () {
+                    if (this.size >= 2){
+                        this.play();
+                    }
+                },
+                play: function () {
+                    var that = this;
+                    this.timmer = setInterval(function () {
+                        that.content.animate({
+                            marginTop: -1 * that.H
+                        }, function () {
+                            that.content.append(that.content.find('li').eq(0)).css('margin-top', 0);
+                        });
+                    }, this.time);
+                },
+                stop: function () {
+                    clearInterval(this.timmer);
+                }
+            };
+
+            var scl = Scroll('.container').start();
+        });
+    </script>
+</head>
+<body>
+<article class="container">
+    <ul>
+        <li>这是内容测试一</li>
+    </ul>
+</article>
+</body>
+</html>
