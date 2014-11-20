@@ -11,6 +11,9 @@
             div[data-src-1200px]:after { content: url("../../images/big-photo.jpg"); }
         }
 
+        img{
+            content: attr(data-small-img, url);
+        }
     </style>
 </head>
 <body>
@@ -18,5 +21,7 @@
 <div
      data-src-992px="../../images/small-photo.jpg"
      data-src-1200px="../../images/big-photo.jpg" alt=""></div>
+
+<img src="../../images/small-photo.jpg" data-small-img="../../images/big-photo.jpg" />
 </body>
 </html>
