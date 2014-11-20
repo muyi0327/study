@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function setup_for_width(mql) {
+        if (mql.matches) {
+            console.log('The screen width is 800px or wider.  Set up or change things');
+            // appropriately.
+        } else {
+            console.log('The screen width is less than 800px.  Set up or change things');
+            // appropriately.
+        }
+    }
+
+    var width_mql = window.matchMedia("(min-width: 800px)");
+    // Add a listener for when the result changes
+    width_mql.addListener(setup_for_width);
+    // And share the same code to set things up with our current state.
+    setup_for_width(width_mql);
+
+
+
+    var mql1 = window.matchMedia("(orientation: portrait)");
+    mql1.addListener(checkDirection);
+    checkDirection(mql1);
+
+    function checkDirection(mql){
+        if (mql.matches){
+            console.log('The device is currently in portrait orientation');
+        }else{
+            console.log('The device is currently in landscape orientation');
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        @media (min-width:700px) {
+            div[data-src-992px]:after { content: url("../../images/small-photo.jpg"); }
+        }
+        @media (min-width:1000px) {
+            div[data-src-1200px]:after { content: url("../../images/big-photo.jpg"); }
+        }
+
+    </style>
+</head>
+<body>
+
+<div
+     data-src-992px="../../images/small-photo.jpg"
+     data-src-1200px="../../images/big-photo.jpg" alt=""></div>
+</body>
+</html>
