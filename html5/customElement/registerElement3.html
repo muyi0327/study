@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<template id="sdtemplate">
+    <style>
+        p { color: orange; }
+    </style>
+    <p>I'm in Shadow DOM. My markup was stamped from a &lt;template&gt;.</p>
+</template>
+
+<script>
+    var proto = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+            value: function() {
+                var t = document.querySelector('#sdtemplate');
+                var clone = document.importNode(t.content, true);
+                this.createShadowRoot().appendChild(clone);
+            }
+        }
+    });
+    var XFooFromTemplate = document.registerElement('x-foo-from-template', {prototype: proto});
+
+    var xfft = new XFooFromTemplate();
+
+    document.body.appendChild(xfft);
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var XFooProto = Object.create(HTMLElement.prototype);
+
+    XFooProto.createdCallback = function(){
+        console.log('create ' + this.tagName);
+    }
+
+    XFooProto.attachedCallback = function(){
+        console.log('insert a ' + this.tagName + 'into dom');
+    }
+
+    XFooProto.attributeChangedCallback = function(attr, ov, nv){
+        console.log('the attribute ' + attr + ' from ' + ov + ' to ' + nv);
+    }
+
+    // 1. 为 x-foo 创建 foo() 方法
+    XFooProto.foo = function() {
+        alert('foo() called');
+    };
+
+    // 2. 定义一个只读的“bar”属性
+    Object.defineProperty(XFooProto, "bar", {value: 5});
+
+    // 3. 注册 x-foo 的定义
+    var XFoo = document.registerElement('x-foo', {prototype: XFooProto});
+
+    // 4. 创建一个 x-foo 实例
+    var xfoo = document.createElement('x-foo');
+
+    // 5. 插入页面
+    document.body.appendChild(xfoo);
+
+    xfoo.addEventListener('click', function(){
+        console.log('click event');
+        xfoo.name = 'lucy';
+    }, false);
+
+    xfoo.style.cssText = 'display:block; height:100px; width:300px; background:orange;';
+
+    var f = document.getElementsByTagName('x-foo')[0];
+
+    f.foo();
+</script>
+</body>
+</html>

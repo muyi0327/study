@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        if (!('registerElement' in document)){
+            document.write('<script src="../js/registerElement.js"></' + 'script>');
+        }
+    </script>
+</head>
+<body>
+<script>
+    var XFoo = document.registerElement('x-foo', {
+        prototype: Object.create(HTMLElement.prototype, {
+            bar: {
+                get: function() { return 5; }
+            },
+            foo: {
+                value: function() {
+                    alert('foo() called');
+                }
+            }
+        })
+    });
+
+    // 4. 创建一个 x-foo 实例
+    var xfoo = document.createElement('x-foo');
+
+    // 5. 插入页面
+    document.body.appendChild(xfoo);
+
+    var f = document.getElementsByTagName('x-foo')[0];
+
+    f.foo();
+</script>
+</body>
+</html>
