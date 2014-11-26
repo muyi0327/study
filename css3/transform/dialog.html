@@ -3,6 +3,66 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            function showDialog(){
+                var df = $.Deferred();
+
+                var body = $('body');
+                $('.dialog').css({
+                    'transform' : 'perspective(600px) rotateY(180deg)  scale(1, 1)',
+                    'transition-duration' : '1s',
+                    visibility : 'visible',
+                    top : body.scrollTop() + body.height() * 0.5 - 100,
+                    left : body.scrollLeft() + body.width() * 0.5 - 150
+                });
+
+                setTimeout(function(){
+                    df.resolve();
+                },1000);
+
+                return df;
+            }
+
+            function closeDialog(){
+
+            }
+
+            $('.cards li').on('click', function(){
+                var ofs = $(this).offset(), defer = $.Deferred(), dialog = $('.dialog');
+
+                defer.done(function(){
+                    dialog.css({
+                        top : ofs.top - 35,
+                        left : ofs.left - 50
+                    });
+                }).then(function(){
+                    var df = $.Deferred();
+
+                    var body = $('body');
+                    $('.dialog').css({
+                        'transform' : 'perspective(600px) rotateY(180deg)  scale(1, 1)',
+                        'transition-duration' : '1s',
+                        visibility : 'visible',
+                        top : body.scrollTop() + body.height() * 0.5 - 100,
+                        left : body.scrollLeft() + body.width() * 0.5 - 150
+                    });
+
+                    setTimeout(function(){
+                        df.resolve();
+                    },1000);
+
+                    return df;
+                }).then(function(){
+                    console.log('show!')
+                });
+
+                defer.resolve();
+            });
+        });
+    </script>
     <style>
         html, body{
             background: #fff;
@@ -35,12 +95,6 @@
             border-radius: 10px;
             position: absolute;
             z-index: 10;
-
-            -moz-transition: transform 1s ease-out; /* Firefox 4 */
-            -webkit-transition: transform 1s ease-out; /* Safari 和 Chrome */
-            -o-transition: transform 1s ease-out; /* Opera */
-            transition: transform 1s ease-out;
-            -webkit-: scale(0.67, 0.65);
             -webkit-transform:perspective(600px) rotateY(0deg)  scale(0.67, 0.65);
             -moz-transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
             -o-transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
@@ -48,6 +102,13 @@
             transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
             margin:0;
             visibility: hidden;
+        }
+
+        .transition{
+            -moz-transition: transform 1s ease-out; /* Firefox 4 */
+            -webkit-transition: transform 1s ease-out; /* Safari 和 Chrome */
+            -o-transition: transform 1s ease-out; /* Opera */
+            transition: transform 1s ease-out;
         }
 
         .dialog.active{
@@ -76,31 +137,31 @@
 <div class="dialog"></div>
 
 <script>
-    var dialog = document.querySelector('.dialog');
-
-    var con = document.querySelector('ul');
-
-    var oft, ofl;
-
-    con.addEventListener('click', function(e){
-        e.stopPropagation();
-        var target = e.target, offset;
-
-        if (target.tagName.toLowerCase() == 'li'){
-            offset = target.getBoundingClientRect();
-            oft = offset.top;
-            ofl = offset.left;
-            dialog.classList.add('active');
-        }
-    }, false);
-
-    document.getElementsByTagName('body')[0].addEventListener('click', function(){
-        dialog.classList.remove('active');
-        dialog.style.visibility = "visible";
-        dialog.style.left = ofl + 'px';
-        dialog.style.top = oft + 'px';
-        dialog.style.margin = '0';
-    }, false);
+//    var dialog = document.querySelector('.dialog');
+//
+//    var con = document.querySelector('ul');
+//
+//    var oft, ofl;
+//
+//    con.addEventListener('click', function(e){
+//        e.stopPropagation();
+//        var target = e.target, offset;
+//
+//        if (target.tagName.toLowerCase() == 'li'){
+//            offset = target.getBoundingClientRect();
+//            oft = offset.top;
+//            ofl = offset.left;
+//            dialog.classList.add('active');
+//        }
+//    }, false);
+//
+//    document.getElementsByTagName('body')[0].addEventListener('click', function(){
+//        dialog.classList.remove('active');
+//        dialog.style.visibility = "visible";
+//        dialog.style.left = ofl + 'px';
+//        dialog.style.top = oft + 'px';
+//        dialog.style.margin = '0';
+//    }, false);
 
 </script>
 </body>
