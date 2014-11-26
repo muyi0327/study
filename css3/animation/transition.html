@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: green;
+            -ms-transition:-ms-background .5s ease;
+            transition: background .5s ease;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script>
+    document.querySelector('.box').addEventListener('click', function(){
+        this.style.background = 'red';
+    }, false);
+</script>
+</body>
+</html>
