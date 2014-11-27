@@ -3,82 +3,125 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.js"></script>
+    <script src="http://libs.useso.com/js/jquery/1.8.3/jquery.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
 
-            function showDialog(){
+            var curCard;
+
+            function showDialog() {
+                $('.dialog, .dialog .front, .dialog .back').css('visibility', 'visible');
                 var df = $.Deferred();
 
                 var body = $('body');
                 $('.dialog').css({
-                    'transform' : 'perspective(600px) rotateY(180deg)  scale(1, 1)',
-                    'transition-duration' : '1s',
-                    visibility : 'visible',
-                    top : body.scrollTop() + body.height() * 0.5 - 100,
-                    left : body.scrollLeft() + body.width() * 0.5 - 150
+                    'transform': 'perspective(600px) rotateY(180deg)  scale(1, 1)',
+                    'transition-duration': '1s',
+                    top: body.scrollTop() + body.height() * 0.5 - 200,
+                    left: body.scrollLeft() + body.width() * 0.5 - 150
                 });
 
-                setTimeout(function(){
+                setTimeout(function () {
                     df.resolve();
-                },1000);
+                }, 1000);
+
+                setTimeout(function(){
+                    $('.dialog .front').css('visibility', 'hidden');
+                },500);
 
                 return df;
             }
 
-            function closeDialog(){
+            function closeDialog() {
+                var df = $.Deferred();
 
-            }
-
-            $('.cards li').on('click', function(){
-                var ofs = $(this).offset(), defer = $.Deferred(), dialog = $('.dialog');
-
-                defer.done(function(){
-                    dialog.css({
-                        top : ofs.top - 35,
-                        left : ofs.left - 50
-                    });
-                }).then(function(){
-                    var df = $.Deferred();
-
-                    var body = $('body');
+                if (curCard) {
+                    var ofs = curCard.offset();
                     $('.dialog').css({
-                        'transform' : 'perspective(600px) rotateY(180deg)  scale(1, 1)',
-                        'transition-duration' : '1s',
-                        visibility : 'visible',
-                        top : body.scrollTop() + body.height() * 0.5 - 100,
-                        left : body.scrollLeft() + body.width() * 0.5 - 150
+                        'transform': 'perspective(600px) rotateY(0deg)  scale(0.67, 0.325)',
+                        'transition-duration': '500ms',
+                        visibility: 'visible',
+                        top: ofs.top - 135,
+                        left: ofs.left - 50
                     });
+                    setTimeout(function () {
+                        df.resolve();
+                    }, 500);
 
                     setTimeout(function(){
-                        df.resolve();
-                    },1000);
+                        $('.dialog .front').css('visibility', 'visible');
+                    },250);
+                } else {
+                    df.resolve();
+                }
 
-                    return df;
-                }).then(function(){
-                    console.log('show!')
+                return df;
+            }
+
+            $(document).click(function(){
+                closeDialog().then(function(){
+                    $('.dialog, .dialog .front, .dialog .back').css('visibility', 'hidden');
+
+                    if (curCard){
+                        curCard.css('visibility', 'visible');
+                        curCard = null;
+                    }
                 });
+            });
+
+            $('.dialog').click(function(e){
+                e.stopPropagation();
+            });
+
+            $('.cards li').on('click', function (e) {
+                var that = $(this);
+                var ofs = $(this).offset(), defer = $.Deferred(), dialog = $('.dialog');
+
+                defer.done(function () {
+                    dialog.css({
+                        top: ofs.top - 135,
+                        left: ofs.left - 50,
+                        'transition-duration': '0s',
+                        visibility: 'hidden'
+                    });
+
+                }).then(closeDialog).then(function(){
+                    that.css('visibility', 'hidden');
+                    dialog.css({
+                        top: ofs.top - 135,
+                        left: ofs.left - 50,
+                        'transition-duration': '0s',
+                        visibility: 'hidden'
+                    });
+
+                    if (curCard){
+                        curCard.css('visibility', 'visible');
+                    }
+                    curCard = that;
+                }).then(showDialog);
 
                 defer.resolve();
+
+                e.stopPropagation();
             });
         });
     </script>
     <style>
-        html, body{
+        html, body {
             background: #fff;
             height: 100%;
             padding: 0;
             margin: 0;
         }
-        .cards{
+
+        .cards {
             width: 720px;
             margin: 50px auto;
             text-align: center;
-            border: 1px solid #ff0;
             padding: 0;
         }
 
-        .cards li{
+        .cards li {
             display: inline-block;
             width: 200px;
             height: 130px;
@@ -88,40 +131,53 @@
             line-height: 130px;
         }
 
-        .dialog{
+        .dialog {
             width: 300px;
-            height: 200px;
-            background: #333;
+            height: 400px;
             border-radius: 10px;
             position: absolute;
             z-index: 10;
-            -webkit-transform:perspective(600px) rotateY(0deg)  scale(0.67, 0.65);
-            -moz-transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
-            -o-transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
-            -ms-transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
-            transform:perspective(600px) rotateY(0deg) scale(0.67, 0.65);
-            margin:0;
+            -webkit-transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
+            -moz-transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
+            -o-transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
+            -ms-transform: perspective(600px) rotateY(0deg) scale(0.67,0.325);
+            transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
+            margin: 0;
             visibility: hidden;
+            overflow: hidden;
         }
 
-        .transition{
-            -moz-transition: transform 1s ease-out; /* Firefox 4 */
-            -webkit-transition: transform 1s ease-out; /* Safari 和 Chrome */
-            -o-transition: transform 1s ease-out; /* Opera */
-            transition: transform 1s ease-out;
+        .dialog .flipper{
+            position: absolute;
+            z-index: 10;
+            top:0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            transform-style: preserve-3d;
         }
 
-        .dialog.active{
-            -webkit-transform:perspective(600px) rotateY(180deg) scale(1, 1);
-            -moz-transform:perspective(600px) rotateY(180deg) scale(1, 1);
-            -o-transform:perspective(600px) rotateY(180deg) scale(1, 1);
-            -ms-transform:perspective(600px) rotateY(180deg) scale(1, 1);
-            transform:perspective(600px) rotateY(180deg) scale(1, 1);
-            margin-left: -150px;
-            margin-top: -100px;
-            left: 50%;
-            top:50%;
-            visibility: visible;
+        .dialog .flipper .front{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            background: green;
+        }
+
+        .dialog .flipper .back{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background: darkblue;
         }
     </style>
 </head>
@@ -133,36 +189,18 @@
     <li>d</li>
     <li>e</li>
     <li>f</li>
+    <li>a</li>
+    <li>b</li>
+    <li>c</li>
+    <li>d</li>
+    <li>e</li>
+    <li>f</li>
 </ul>
-<div class="dialog"></div>
-
-<script>
-//    var dialog = document.querySelector('.dialog');
-//
-//    var con = document.querySelector('ul');
-//
-//    var oft, ofl;
-//
-//    con.addEventListener('click', function(e){
-//        e.stopPropagation();
-//        var target = e.target, offset;
-//
-//        if (target.tagName.toLowerCase() == 'li'){
-//            offset = target.getBoundingClientRect();
-//            oft = offset.top;
-//            ofl = offset.left;
-//            dialog.classList.add('active');
-//        }
-//    }, false);
-//
-//    document.getElementsByTagName('body')[0].addEventListener('click', function(){
-//        dialog.classList.remove('active');
-//        dialog.style.visibility = "visible";
-//        dialog.style.left = ofl + 'px';
-//        dialog.style.top = oft + 'px';
-//        dialog.style.margin = '0';
-//    }, false);
-
-</script>
+<div class="dialog">
+    <div class="flipper">
+        <div class="front"></div>
+        <div class="back"></div>
+    </div>
+</div>
 </body>
 </html>
