@@ -10,24 +10,32 @@
             var curCard;
 
             function showDialog() {
-                $('.dialog, .dialog .front, .dialog .back').css('visibility', 'visible');
                 var df = $.Deferred();
 
                 var body = $('body');
                 $('.dialog').css({
-                    'transform': 'perspective(600px) rotateY(180deg)  scale(1, 1)',
+                    'transform': 'scale(1, 1)',
                     'transition-duration': '1s',
+                    visibility : 'visible',
                     top: body.scrollTop() + body.height() * 0.5 - 200,
                     left: body.scrollLeft() + body.width() * 0.5 - 150
+                });
+
+                $('.dialog .back').css({
+                    'transform': 'rotateY(0deg)  scale(1, 1)',
+                    'transition-duration': '1000ms',
+                    visibility: 'visible'
+                });
+
+                $('.dialog .front').css({
+                    'transform': 'rotateY(180deg)  scale(1, 1)',
+                    'transition-duration': '1000ms',
+                    visibility: 'visible'
                 });
 
                 setTimeout(function () {
                     df.resolve();
                 }, 1000);
-
-                setTimeout(function(){
-                    $('.dialog .front').css('visibility', 'hidden');
-                },500);
 
                 return df;
             }
@@ -38,19 +46,29 @@
                 if (curCard) {
                     var ofs = curCard.offset();
                     $('.dialog').css({
-                        'transform': 'perspective(600px) rotateY(0deg)  scale(0.67, 0.325)',
+                        'transform': 'scale(0.67, 0.325)',
                         'transition-duration': '500ms',
                         visibility: 'visible',
                         top: ofs.top - 135,
                         left: ofs.left - 50
                     });
+
+                    $('.dialog .back').css({
+                        'transform': 'rotateY(-180deg)  scale(1, 1)',
+                        'transition-duration': '500ms',
+                        visibility: 'visible'
+                    });
+
+                    $('.dialog .front').css({
+                        'transform': 'rotateY(0deg)  scale(1, 1)',
+                        'transition-duration': '500ms',
+                        visibility: 'visible'
+                    });
+
                     setTimeout(function () {
                         df.resolve();
                     }, 500);
 
-                    setTimeout(function(){
-                        $('.dialog .front').css('visibility', 'visible');
-                    },250);
                 } else {
                     df.resolve();
                 }
@@ -60,8 +78,6 @@
 
             $(document).click(function(){
                 closeDialog().then(function(){
-                    $('.dialog, .dialog .front, .dialog .back').css('visibility', 'hidden');
-
                     if (curCard){
                         curCard.css('visibility', 'visible');
                         curCard = null;
@@ -112,6 +128,7 @@
             height: 100%;
             padding: 0;
             margin: 0;
+            font:normal 32px/2 'microsoft yahei';
         }
 
         .cards {
@@ -129,6 +146,7 @@
             margin: 10px;
             color: #fff;
             line-height: 130px;
+            border-radius: 6px;
         }
 
         .dialog {
@@ -137,14 +155,22 @@
             border-radius: 10px;
             position: absolute;
             z-index: 10;
-            -webkit-transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
-            -moz-transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
-            -o-transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
-            -ms-transform: perspective(600px) rotateY(0deg) scale(0.67,0.325);
-            transform: perspective(600px) rotateY(0deg) scale(0.67, 0.325);
+            -webkit-perspective:900px;
+            -moz-perspective:900px;
+            -ms-perspective:900px;
+            -o-perspective:900px;
+            perspective:900px;
+            -webkit-transform: rotateY(0deg) scale(0.67, 0.325);
+            -moz-transform: rotateY(0deg) scale(0.67, 0.325);
+            -o-transform: rotateY(0deg) scale(0.67, 0.325);
+            -ms-transform: rotateY(0deg) scale(0.67, 0.325);
+            transform: rotateY(0deg) scale(0.67, 0.325);
             margin: 0;
             visibility: hidden;
             overflow: hidden;
+            text-align: center;
+            color: #fff;
+            line-height: 400px;
         }
 
         .dialog .flipper{
@@ -160,6 +186,13 @@
             transform-style: preserve-3d;
         }
 
+        .dialog .front, .dialog .back{
+            backface-visibility:hidden;
+            -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+            -moz-backface-visibility:hidden; 	/* Firefox */
+            -ms-backface-visibility:hidden; 	/* Internet Explorer */
+        }
+
         .dialog .flipper .front{
             height: 100%;
             width: 100%;
@@ -167,7 +200,8 @@
             z-index: 2;
             top: 0;
             left: 0;
-            background: green;
+            background: orange;
+            transform: rotateY(0deg);
         }
 
         .dialog .flipper .back{
@@ -178,6 +212,7 @@
             top: 0;
             left: 0;
             background: darkblue;
+            transform: rotateY(-180deg);
         }
     </style>
 </head>
@@ -198,8 +233,8 @@
 </ul>
 <div class="dialog">
     <div class="flipper">
-        <div class="front"></div>
-        <div class="back"></div>
+        <div class="front">正面内空</div>
+        <div class="back">反而内容</div>
     </div>
 </div>
 </body>

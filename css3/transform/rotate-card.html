@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<script src="http://libs.useso.com/js/jquery/1.8.3/jquery.js"></script>
+<style>
+    .stage {
+        width: 400px;
+        height: 400px;
+        transform: scale(.5, .5);
+        -webkit-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+        -moz-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+        -ms-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+        -o-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+        transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        visibility: hidden;
+    }
+
+    .container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        -moz-transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-perspective: 900px;
+        -moz-perspective: 900px;
+        -ms-perspective: 900px;
+        -o-perspective: 900px;
+        perspective: 900px;
+    }
+
+    .front, .back {
+        -moz-backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        font: normal 40px/400px 'microsoft yahei';
+        color: #fff;
+        text-align: center;
+        -webkit-transition: transform 0.6s ease-in;
+        -moz-transition: transform 0.6s ease-in;
+        -ms-transition: transform 0.6s ease-in;
+        -o-transition: transform 0.6s ease-in;
+        transition: transform 0.6s ease-in;
+        border-radius: 10px;
+    }
+
+    .front {
+        background: orange;
+        z-index: 201;
+        transform: rotateY(0deg);
+    }
+
+    .back {
+        background: green;
+        transform: rotateY(-180deg);
+    }
+
+    .container:hover .front {
+        transform: rotateY(180deg);
+    }
+
+    .container:hover .back {
+        transform: rotateY(0deg);
+    }
+
+    .cards {
+        width: 800px;
+        height: 600px;
+        margin: 50px auto;
+        text-align: center;
+    }
+
+    .cards li {
+        width: 200px;
+        height: 150px;
+        border-radius: 10px;
+        display: inline-block;
+        margin: 5px;
+        font:normal 20px/150px 'microsoft yahei';
+        color: #fff;
+    }
+
+    .cards li:nth-child(1) {
+        background: green;
+    }
+
+    .cards li:nth-child(2) {
+        background: orange;
+    }
+
+    .cards li:nth-child(3) {
+        background: olive;
+    }
+
+    .cards li:nth-child(4) {
+        background: red;
+    }
+
+    .cards li:nth-child(5) {
+        background: blueviolet;
+    }
+
+    .cards li:nth-child(6) {
+        background: yellowgreen;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        var stage = $('.stage'),
+                front = $('.front'),
+                back = $('.back'),
+                cards = $('ul.cards li'),
+                status = 'closed',
+                curCard, scx = 200 / 400, scy = 150 / 400, cutx = (400 - 200) * 0.5, cuty = (400 - 150) * 0.5;
+
+        function showCard() {
+            var def = $.Deferred();
+
+            var sct = Math.max(document.body.scrollTop, document.documentElement.scrollTop),
+                    scl = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);
+
+            status = 'showing';
+            stage.css({
+                top: sct + ($(window).height() - 400) * 0.5,
+                left: scl + ($(window).width() - 400) * 0.5,
+                transform: 'scale(1, 1)',
+                visibility: 'visible',
+                transition: 'transform 0.6s ease-in, top 0.6s ease-in, left 0.6s ease-in'
+            });
+
+            front.css({
+                transform: 'rotateY(180deg) translateZ(0)',
+                transition: 'transform 0.6s ease-in'
+            });
+
+            back.css({
+                transform: 'rotateY(0deg) translateZ(0)',
+                transition: 'transform 0.6s ease-in'
+            });
+
+            stage.one('transitionend', function(){
+                console.log('transitionend');
+                def.resolve();
+            });
+
+            return def;
+        }
+
+        function closeCard() {
+            var def = $.Deferred(), ofs, oft, ofl;
+
+            if (curCard){
+                ofs = curCard.offset();
+                oft = parseInt(ofs.top);
+                ofl = parseInt(ofs.left);
+
+                status = 'closing';
+
+                stage.css({
+                    top: oft - cuty,
+                    left: ofl - cutx,
+                    transform: 'scale(' + scx + ',' + scy + ')',
+                    transition: 'transform 0.6s ease-in, top 0.6 0.6s ease-in, left 0.6s ease-in'
+                });
+
+                front.css({
+                    transform: 'rotateY(0deg) translateZ(0)',
+                    transition: 'transform 0.6s ease-in'
+                });
+
+                back.css({
+                    transform: 'rotateY(-180deg) translateZ(0)',
+                    transition: 'transform 0.6s ease-in'
+                });
+
+                stage.one('transitionend', function(){
+                    console.log('transitionend');
+                    def.resolve();
+                });
+            }else{
+                def.resolve();
+            }
+
+            return def;
+        }
+
+        function goPos(el) {
+            stage.css({
+                top: el.offset().top - cuty,
+                left: el.offset().left - cutx,
+                transition: 'top 0s ease-in, top 0s ease-in'
+            });
+        }
+
+        $(document).click(function () {
+            closeCard().then(function () {
+                stage.css({
+                    visibility: 'hidden'
+                });
+
+                curCard && curCard.css({
+                    visibility : 'visible'
+                });
+
+                curCard = null;
+
+                status = 'closed';
+            });
+
+
+        });
+
+        stage.click(function (e) {
+            e.stopPropagation();
+        });
+
+        cards.on('click', function (e) {
+            var that = $(this);
+            if (!curCard) {
+                goPos(that);
+                curCard = that;
+            }
+
+            if (status == 'closed') {
+                front.css({
+                    background : curCard.text()
+                }).text(curCard.text() );
+
+                that.css('visibility', 'hidden');
+                showCard();
+                status = 'showed';
+            } else {
+                closeCard().then(function () {
+                    goPos(that);
+                    stage.css({
+                        visibility: 'hidden'
+                    });
+                    curCard.css({
+                        'visibility' : 'visible'
+                    });
+                    curCard = that;
+
+                    front.css({
+                        background : curCard.text()
+                    }).text(curCard.text() );
+
+                    that.css({
+                        'visibility' :'hidden'
+                    });
+                    status = 'closed';
+                }).then(showCard).then(function () {
+                    status = 'showed';
+                });
+            }
+
+            e.stopPropagation();
+        });
+    });
+</script>
+</head>
+<body>
+
+<ul class="cards">
+    <li>green</li>
+    <li>orange</li>
+    <li>olive</li>
+    <li>red</li>
+    <li>blueviolet</li>
+    <li>yellowgreen</li>
+</ul>
+<div class="stage">
+    <div class="container">
+        <div class="front">正面内容</div>
+        <div class="back">反面内容</div>
+    </div>
+</div>
+</body>
+</html>

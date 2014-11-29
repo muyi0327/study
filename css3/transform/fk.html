@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>text</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            width: 700px;
+            height: 700px;
+        }
+        .container{
+            position: relative;
+            top: 200px;
+            left: 400px;
+            width:200px;
+            height: 200px;
+        }
+        .container div{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width:200px;
+            height: 200px;
+            -webkit-transition: 1.5s ease-in-out;
+            -moz-transition: 1.5s ease-in-out;
+            -ms-transition: 1.5s ease-in-out;
+            -o-transition: 1.5s ease-in-out;
+            transition: 1.5s ease-in-out;
+            -moz-transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-perspective:900px;
+            -moz-perspective:900px;
+            -ms-perspective:900px;
+            -o-perspective:900px;
+            perspective:900px;
+        }
+        .upper{
+            -moz-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            background-color: #ffa043;
+        }
+        .lower{
+            -moz-backface-visibility: hidden;/*抖动*/
+            -webkit-backface-visibility: hidden;
+            -moz-transform: rotateY(-180deg);
+            -webkit-transform: rotateY(-180deg);
+            background-color: #fff000;
+        }
+        .container:hover .upper{
+            -moz-transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+        }
+        .container:hover .lower{
+            -moz-transform: rotateY(0deg);
+            -webkit-transform: rotateY(0deg);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="upper">
+        我在马路边捡到2分钱
+    </div>
+    <div class="lower">
+        把它交给警察叔叔手里边
+    </div>
+</div>
+</body>
+</html>
