@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .stage {
+            width: 400px;
+            height: 400px;
+            transform: scale(.5, .5);
+            -webkit-transform: scale(.5, .5);
+            -moz-transform: scale(.5, .5);
+            -ms-transform: scale(.5, .5);
+            -o-transform: scale(.5, .5);
+            transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+            -webkit-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+            -moz-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+            -ms-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+            -o-transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 2;
+        }
+
+        .container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+
+            perspective: 900px;
+            -webkit-perspective: 900px;
+            -moz-perspective: 900px;
+            -ms-perspective: 900px;
+            -o-perspective: 900px;
+
+        }
+
+        .front, .back {
+            backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            font: normal 40px/400px 'microsoft yahei';
+            color: #fff;
+            text-align: center;
+            transition: -webkit-transform 0.6s ease-in;
+            -webkit-transition: -webkit-transform 0.6s ease-in;
+            -moz-transition: transform 0.6s ease-in;
+            -ms-transition: transform 0.6s ease-in;
+            -o-transition: transform 0.6s ease-in;
+
+            border-radius: 10px;
+        }
+
+        .front {
+            background: orange;
+            z-index: 201;
+            transform: rotateY(0deg)  translateZ(0px);
+            -webkit-transform: rotateY(0deg)  translateZ(0px);
+            -moz-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+        }
+
+        .back {
+            background: green;
+            transform: rotateY(-180deg)  translateZ(0px);
+            -webkit-transform: rotateY(-180deg)  translateZ(0px);
+            -moz-transform: rotateY(-180deg);
+            -ms-transform: rotateY(-180deg);
+            -o-transform: rotateY(-180deg);
+        }
+
+        .container:hover .front {
+            transform: rotateY(180deg)  translateZ(0px);
+            -webkit-transform: rotateY(180deg)  translateZ(0px);
+            -moz-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
+        }
+
+        .container:hover .back {
+            transform: rotateY(0deg);
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+        }
+    </style>
+</head>
+<body>
+<div class="stage">
+    <div class="container">
+        <div class="front">正面内容</div>
+        <div class="back">反面内容</div>
+    </div>
+</div>
+</body>
+</html>
