@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title></title>
+    <style>
+        .header, .footer,.con-page{
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .header{
+            top: 0;
+            background: rgba(0,0,0,.6);
+            height: 36px;
+        }
+
+        .footer{
+            bottom: 0;
+            background: orange;
+            height: 28px;
+        }
+
+        .con-page{
+            top:36px;
+            bottom: 28px;
+        }
+
+        .con-page > article{
+            width: 100%;
+            position: absolute;
+            z-index: 201;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+            overflow-scrolling: touch;
+        }
+
+        .con-page > article:nth-child(1){
+            background: darkslateblue;
+            left: 0;
+        }
+
+        .con-page > article:nth-child(2){
+            background: goldenrod;
+            left: 100%;
+        }
+
+        .con-page > article:nth-child(3){
+            background: palevioletred;
+            left: 200%;
+        }
+    </style>
+</head>
+<body>
+<header class="header">头部导航</header>
+<section class="con-page">
+    <article></article>
+    <article></article>
+    <article></article>
+</section>
+<footer class="footer">尾部</footer>
+</body>
+</html>
