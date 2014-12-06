@@ -1,23 +1,24 @@
 {
-  "name": "angular-study",
-  "version": "1.0.0",
-  "description": "study =====",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/muyi0327/study.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/muyi0327/study/issues"
-  },
-  "homepage": "https://github.com/muyi0327/study",
-  "devDependencies": {
-    "gulp": "^3.8.10",
-    "gulp-sass": "^1.1.0"
-  }
+    "name": "angular-study",
+    "version": "1.0.0",
+    "description": "study =====",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node bin/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/muyi0327/study.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/muyi0327/study/issues"
+    },
+    "homepage": "https://github.com/muyi0327/study",
+    "devDependencies": {
+        "gulp": "^3.8.10",
+        "gulp-sass": "^1.1.0"
+    }
 }
