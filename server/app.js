@@ -23,6 +23,7 @@ module.exports = function(){
     app.use(express.session());
     app.use(app.router);
     app.use(express.static(path.join('./', 'app')));
+    app.use(express.static(path.join('./', 'bower_components')));
 
     // development only
     if ('development' == app.get('env')) {

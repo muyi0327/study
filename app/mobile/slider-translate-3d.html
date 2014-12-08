@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <title></title>
     <script src="http://libs.useso.com/js/zepto/1.1.3/zepto.js"></script>
     <script src="/zepto/touch.js"></script>
@@ -51,23 +51,36 @@
         }
 
         .transition{
-            transition:left 300ms cubic-bezier(0.42, 0, 0.58, 1);
-            -webkit-transition:left 300ms cubic-bezier(0.42, 0, 0.58, 1);
-            -moz-transition:left 300ms cubic-bezier(0.42, 0, 0.58, 1);
-            -o-transition:left 300ms cubic-bezier(0.42, 0, 0.58, 1);
-            -ms-transition:left 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -webkit-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -webkit-transition:-webkit-transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -moz-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -o-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -ms-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
         }
 
         .prev{
-            left: -100%;
+            transform: translate3d(-100%,0,0);
+            -webkit-transform: translate3d(-100%,0,0);
+            -moz-transform: translate3d(-100%,0,0);
+            -o-transform: translate3d(-100%,0,0);
+            -ms-transform: translate3d(-100%,0,0);
         }
 
         .next{
-            left: 100%;
+            transform: translate3d(100%,0,0);
+            -webkit-transform: translate3d(100%,0,0);
+            -moz-transform: translate3d(100%,0,0);
+            -o-transform: translate3d(100%,0,0);
+            -ms-transform: translate3d(100%,0,0);
         }
 
         .cur{
-            left: 0;
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
         }
 
         .con-page > article:nth-child(1){
@@ -91,6 +104,8 @@
                     body = $('body'),
                     scw = parseInt(body.width()),
                     sch = parseInt(body.height());
+
+            var transitionend = 'transitionend webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd';
 
             wrap.on('touchstart', function(e){
                 e.stopPropagation();
@@ -120,20 +135,28 @@
                 switch (direction){
                     case 'left':
                         curPage.css({
-                            left: mvX
+                            'transform' : 'translate3d('+mvX+'px,0,0)',
+                            '-webkit-transform' : 'translate3d('+mvX+'px,0,0)'
                         });
 
                         if (index < size-1){
-                            pages.eq(index+1).css({left:scw+mvX});
+                            pages.eq(index+1).css({
+                                'transform' : 'translate3d('+(scw+mvX)+'px,0,0)',
+                                '-webkit-transform' : 'translate3d('+(scw+mvX)+'px,0,0)'
+                            });
                         }
                         break;
                     case 'right':
                         curPage.css({
-                            left: mvX
+                            'transform' : 'translate3d('+ mvX +'px,0,0)',
+                            '-webkit-transform' : 'translate3d('+ mvX +'px,0,0)'
                         });
 
                         if (index > 0){
-                            pages.eq(index-1).css({left:mvX-scw});
+                            pages.eq(index-1).css({
+                                'transform' : 'translate3d('+(mvX-scw)+'px,0,0)',
+                                '-webkit-transform' : 'translate3d('+(mvX-scw)+'px,0,0)'
+                            });
                         }
                         break;
                 }
@@ -151,12 +174,16 @@
                         endNX = disX > scw*0.33333 ? 0 : '100%';
 
                         curPage.addClass('transition').css({
-                           left : endX
+                           'transform' : 'translate3d('+endX+',0,0)',
+                           '-webkit-transform' : 'translate3d('+endX+',0,0)'
                         });
 
                         if (index < size-1){
                             nextPage = pages.eq(index+1);
-                            nextPage.addClass('transition').css({left:endNX});
+                            nextPage.addClass('transition').css({
+                                'transform' : 'translate3d('+endNX+',0,0)',
+                                '-webkit-transform' : 'translate3d('+endNX+',0,0)'
+                            });
                         }
 
                         break;
@@ -165,26 +192,30 @@
                         endNX = disX > scw*0.33333 ? 0 : '-100%';
 
                         curPage.addClass('transition').css({
-                            left : endX
+                            'transform' : 'translate3d('+endX+',0,0)',
+                            '-webkit-transform' : 'translate3d('+endX+',0,0)'
                         });
 
                         if (index > 0){
                             prevPage = pages.eq(index-1);
-                            prevPage.addClass('transition').css({left:endNX});
+                            prevPage.addClass('transition').css({
+                                'transform' : 'translate3d('+endNX+',0,0)',
+                                '-webkit-transform' : 'translate3d('+endNX+',0,0)'
+                            });
                         }
                         break;
                 }
 
-                curPage.one('transitionend', function(){
+                curPage.one(transitionend, function(){
                     curPage.removeClass('transition');
                 });
 
-                nextPage && nextPage.one('transitionend', function(){
+                nextPage && nextPage.one(transitionend, function(){
                     nextPage.removeClass('transition');
                     nextPage = null;
                 });
 
-                prevPage && prevPage.one('transitionend', function(){
+                prevPage && prevPage.one(transitionend, function(){
                     prevPage.removeClass('transition');
                     prevPage=null;
                 });
