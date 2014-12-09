@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title></title>
+    <script src="http://libs.useso.com/js/zepto/1.1.3/zepto.js"></script>
+    <script src="/zepto/touch.js"></script>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        .header, .footer,.con-page{
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            text-align: center;
+        }
+
+        .header{
+            top: 0;
+            background: rgba(0,0,0,.6);
+            height: 36px;
+            line-height: 36px;
+        }
+
+        .footer{
+            bottom: 0;
+            background: orange;
+            height: 28px;
+            line-height: 28px;
+        }
+
+        .con-page{
+            top:36px;
+            bottom: 28px;
+            overflow: hidden;
+        }
+
+        .con-page > article{
+            width: 100%;
+            position: absolute;
+            z-index: 201;
+            top:0;
+            height: 100%;
+        }
+
+        .transition{
+            transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -webkit-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -webkit-transition:-webkit-transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -moz-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -o-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+            -ms-transition:transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
+        }
+
+        .prev{
+            transform: translate3d(-100%,0,0);
+            -webkit-transform: translate3d(-100%,0,0);
+            -moz-transform: translate3d(-100%,0,0);
+            -o-transform: translate3d(-100%,0,0);
+            -ms-transform: translate3d(-100%,0,0);
+        }
+
+        .next{
+            transform: translate3d(100%,0,0);
+            -webkit-transform: translate3d(100%,0,0);
+            -moz-transform: translate3d(100%,0,0);
+            -o-transform: translate3d(100%,0,0);
+            -ms-transform: translate3d(100%,0,0);
+        }
+
+        .cur{
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+        }
+
+        .con-page > article:nth-child(1){
+            background: darkslateblue;
+        }
+
+        .con-page > article:nth-child(2){
+            background: goldenrod;
+        }
+
+        .con-page > article:nth-child(3){
+            background: palevioletred;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            var wrap = $('.con-page'),
+                    pages = wrap.find('article'),
+                    size = pages.size(),
+                    touches={},
+                    body = $('body'),
+                    scw = parseInt(body.width()),
+                    sch = parseInt(body.height());
+
+            var transitionend = 'transitionend webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd';
+
+            wrap.on('touchstart', function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                touches = {
+                    x1 : e.touches[0].pageX,
+                    y1 : e.touches[0].pageY
+                }
+            }).on('touchmove', function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                var touch = e.touches[0],
+                        x2=touch.pageX,
+                        y2=touch.pageY,
+                        curPage=$(e.target),
+                        mvX = x2-touches.x1,
+                        mvY = y2-touches.y1,
+                        disX = Math.abs(mvX),
+                        disY = Math.abs(mvY),
+                        index = pages.index(curPage),
+                        direction = disX >= disY ? mvX > 0 ? 'right' : 'left' : mvY > 0 ? 'up' : 'down';
+
+                touches.direction = direction;
+                touches.disX = disX;
+                touches.disY = disY;
+
+                switch (direction){
+                    case 'left':
+                        curPage.css({
+                            'transform' : 'translate3d('+mvX+'px,0,0)',
+                            '-webkit-transform' : 'translate3d('+mvX+'px,0,0)'
+                        });
+
+                        if (index < size-1){
+                            pages.eq(index+1).css({
+                                'transform' : 'translate3d('+(scw+mvX)+'px,0,0)',
+                                '-webkit-transform' : 'translate3d('+(scw+mvX)+'px,0,0)'
+                            });
+                        }
+                        break;
+                    case 'right':
+                        curPage.css({
+                            'transform' : 'translate3d('+ mvX +'px,0,0)',
+                            '-webkit-transform' : 'translate3d('+ mvX +'px,0,0)'
+                        });
+
+                        if (index > 0){
+                            pages.eq(index-1).css({
+                                'transform' : 'translate3d('+(mvX-scw)+'px,0,0)',
+                                '-webkit-transform' : 'translate3d('+(mvX-scw)+'px,0,0)'
+                            });
+                        }
+                        break;
+                }
+
+            }).on('touchend', function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                var curPage = $(e.target), direction = touches.direction,
+                        disX = touches.disX, disY = touches.disY, index = pages.index(curPage),
+                        nextPage, prevPage, endX, endY, endNX, endNY;
+
+                switch (direction){
+                    case 'left':
+                        endX = disX < scw*0.33333 || index == size-1 ? 0 : '-100%';
+                        endNX = disX > scw*0.33333 ? 0 : '100%';
+
+                        curPage.addClass('transition').css({
+                           'transform' : 'translate3d('+endX+',0,0)',
+                           '-webkit-transform' : 'translate3d('+endX+',0,0)'
+                        });
+
+                        if (index < size-1){
+                            nextPage = pages.eq(index+1);
+                            nextPage.addClass('transition').css({
+                                'transform' : 'translate3d('+endNX+',0,0)',
+                                '-webkit-transform' : 'translate3d('+endNX+',0,0)'
+                            });
+                        }
+
+                        break;
+                    case 'right':
+                        endX = disX < scw*0.33333 || index == 0 ? 0 :'100%';
+                        endNX = disX > scw*0.33333 ? 0 : '-100%';
+
+                        curPage.addClass('transition').css({
+                            'transform' : 'translate3d('+endX+',0,0)',
+                            '-webkit-transform' : 'translate3d('+endX+',0,0)'
+                        });
+
+                        if (index > 0){
+                            prevPage = pages.eq(index-1);
+                            prevPage.addClass('transition').css({
+                                'transform' : 'translate3d('+endNX+',0,0)',
+                                '-webkit-transform' : 'translate3d('+endNX+',0,0)'
+                            });
+                        }
+                        break;
+                }
+
+                curPage.one(transitionend, function(){
+                    curPage.removeClass('transition');
+                });
+
+                nextPage && nextPage.one(transitionend, function(){
+                    nextPage.removeClass('transition');
+                    nextPage = null;
+                });
+
+                prevPage && prevPage.one(transitionend, function(){
+                    prevPage.removeClass('transition');
+                    prevPage=null;
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+<header class="header">头部导航</header>
+<section class="con-page">
+    <article class="cur"></article>
+    <article class="next"></article>
+    <article class="next"></article>
+</section>
+<footer class="footer">尾部</footer>
+</body>
+</html>
