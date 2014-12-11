@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.js"></script>
+</head>
+<body>
+<audio src="love.mp3" id="someVideo" controls="controls"></audio>
+<script type="text/javascript">
+    function fakeClick(fn) {
+        var $a = $('<a href="#" id="fakeClick"></a>');
+        $a.bind("click tap", function(e) {
+            e.preventDefault();
+            fn();
+        });
+
+        $("body").append($a);
+
+        var evt,
+                el = $("#fakeClick").get(0);
+
+        if (document.createEvent) {
+            evt = document.createEvent("MouseEvents");
+            if (evt.initMouseEvent) {
+                evt.initMouseEvent("tap", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                el.dispatchEvent(evt);
+            }
+        }
+
+        $(el).remove();
+    }
+
+    $(function() {
+        var video = $("#someVideo").get(0);
+
+        fakeClick(function() {
+            video.play();
+        });
+    });
+
+</script>
+</body>
+</html>

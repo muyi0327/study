@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <title>Looping Audio</title>
+    <script type="text/javascript">
+        function init() {
+            var myAudio = document.getElementById("audio");
+            myAudio.addEventListener('ended', loopAudio, false);
+        }
+        function loopAudio() {
+            var myAudio = document.getElementById("audio");
+            myAudio.play();
+        }
+    </script>
+</head>
+<body onload="init();">
+<audio id="audio" src="love.mp3" controls></audio>
+</body>
+</html>
