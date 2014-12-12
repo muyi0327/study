@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>HTML5 History API </title>
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <script src="/bower_components/zepto/zepto.min.js"></script>
+    <style>
+        html, body{
+            height: 100%;
+            font-size:62.5%;
+            padding: 0;
+            margin: 0;
+            font-family: "Heiti SC","microsoft yahei";
+        }
+
+        nav, .nav-view, .content-view {
+            height: 100%;
+        }
+
+        ul, li{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        ul{
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21–28, Safari 6.1+ */
+            display: flex;          /* NEW: IE11, Chrome 29+, Opera 12.1+, Firefox 22+ */
+            flex-direction: column;
+            -webkit-flex-direction: column;
+            -moz-flex-direction: column;
+            height: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+        }
+
+        ul > li{
+            -moz-flex:1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            -o-flex: 1;
+            flex: 1;
+            box-flex:1;
+            -webkit-box-flex:1;
+
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21–28, Safari 6.1+ */
+            display: flex;/* NEW: IE*/
+
+            background: orange;
+            color: #fff;
+            text-align: center;
+            margin: 5px 0;
+            font-size: 2.4rem;
+            font-weight: lighter;
+        }
+
+        ul > li > span{
+            display: block;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function(){
+            console.log(window.location);
+            var navs = $('ul > li'), history = window.history;
+            navs.on('click', function(){
+                history.pushState({con:$(this).text()}, '', window.location.pathname + '#'+$(this).attr('data-page'));
+                console.log(history.state);
+            });
+
+            console.log('onhashchange' in window);
+            window.onhashchange = function(e){
+                console.log(e);
+            };
+        });
+    </script>
+</head>
+<body>
+<section class="nav-view">
+    <nav>
+        <ul>
+            <li data-page="yiyue"><span>音乐</span><i></i></li>
+            <li data-page="caijin"><span>文学</span></li>
+            <li data-page="jingji"><span>财经</span></li>
+            <li data-page="junshi"><span>军事</span></li>
+            <li data-page="yuele"><span>娱乐</span></li>
+        </ul>
+    </nav>
+</section>
+<section class="content-view">
+    <!--内容-->
+</section>
+</body>
+</html>
