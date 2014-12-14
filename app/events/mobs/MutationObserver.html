@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>MutationObserver</title>
+</head>
+<body>
+<div id="some-id">测试内容</div>
+<button onclick="observeChildList()">观察节点</button>
+<button onclick="observeAttr()">观察属性</button>
+<button onclick="observeContent()">观察内容</button>
+<button onclick="addChild()">添加节点</button>
+<button onclick="rmeChild()">删除节点</button>
+<button onclick="addAttr()">添加属性</button>
+<button onclick="removeAttr()">删除属性</button>
+<button onclick="addText()">添加内容</button>
+<button onclick="rmText()">删除内容</button>
+
+<script>
+    // Firefox和Chrome早期版本中带有前缀
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+
+    // 选择目标节点
+    var target = document.querySelector('#some-id');
+    // 创建观察者对象
+    var observer = new MutationObserver(function(mutations) {
+        console.log(mutations);
+    });
+    // 配置观察选项:
+    //var config = { attributes: true, childList: true, characterData: true };
+    function observeChildList(){
+        observer.disconnect();
+        observer.observe(target, {
+            childList : true
+        });
+    }
+
+    function observeAttr(){
+        observer.disconnect();
+        observer.observe(target, {
+            attributes : true,
+            attributeOldValue : true,
+            attributeFilter : ['con']  // 指定观察属性
+        });
+    }
+
+    function observeContent(){
+        observer.disconnect();
+        observer.observe(target.firstChild, {
+            characterData : true,
+            characterDataOldValue : true
+        });
+    }
+
+    function addChild(){
+        target.appendChild(document.createElement('span'));
+    }
+
+    function rmeChild(){
+        //var list = target.children;
+        var list = target.childNodes;
+
+        for (var i= 0,len=list.length; i<len; i++){
+            target.removeChild(target.firstChild);
+        }
+    }
+
+    function addAttr(){
+        target.setAttribute('con', 'add a title');
+    }
+
+    function removeAttr(){
+        target.removeAttribute('con');
+    }
+
+    function addText(){
+        target.firstChild.nodeValue="add some text";
+    }
+
+    function rmText(){
+        target.firstChild.nodeValue='';
+    }
+</script>
+</body>
+</html>
