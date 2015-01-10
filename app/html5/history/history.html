@@ -70,22 +70,26 @@
             display: -ms-flexbox;   /* MID: IE 10 */
             display: -webkit-flex;  /* NEW, Chrome 21–28, Safari 6.1+ */
             display: flex;          /* NEW: IE11, Chrome 29+, Opera 12.1+, Firefox 22+ */
-            flex-direction: column;
+
             -webkit-flex-direction: column;
             -moz-flex-direction: column;
+            flex-direction: column;
+
+            -webkit-box-orient: vertical;
+            -moz-box-orient: vertical;
+            box-orient: vertical;
             height: 100%;
-            padding: 12px;
             box-sizing: border-box;
         }
 
         ul > li{
+            -webkit-box-flex:1;
+            box-flex:1;
             -moz-flex:1;
             -webkit-flex: 1;
             -ms-flex: 1;
             -o-flex: 1;
             flex: 1;
-            box-flex:1;
-            -webkit-box-flex:1;
 
             display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
             display: -moz-box;      /* OLD: Firefox (buggy) */
@@ -93,16 +97,23 @@
             display: -webkit-flex;  /* NEW, Chrome 21–28, Safari 6.1+ */
             display: flex;/* NEW: IE*/
 
+            box-pack:center;
+            -webkit-box-pack:center;
+
+
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
             background: orange;
             color: #fff;
-            text-align: center;
-            margin: 5px 0;
             font-size: 2.4rem;
             font-weight: lighter;
         }
 
         ul > li > span{
-            display: block;
+            display: inline-block;
             margin: auto;
         }
 
@@ -163,7 +174,7 @@
 <section class="nav-view cur">
     <nav>
         <ul>
-            <li data-page="yiyue"><span>音乐</span><i></i></li>
+            <li data-page="yiyue"><span>音乐</span></li>
             <li data-page="caijin"><span>文学</span></li>
             <li data-page="jingji"><span>财经</span></li>
             <li data-page="junshi"><span>军事</span></li>
