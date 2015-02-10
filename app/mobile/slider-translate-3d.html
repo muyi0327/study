@@ -103,9 +103,8 @@
                     touches={},
                     body = $('body'),
                     scw = parseInt(body.width()),
-                    sch = parseInt(body.height());
-
-            var transitionend = 'transitionend webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd';
+                    sch = parseInt(body.height()),
+                    transitionend = 'transitionend webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd';
 
             wrap.on('touchstart', function(e){
                 e.stopPropagation();
@@ -160,12 +159,13 @@
                         }
                         break;
                 }
-
             }).on('touchend', function(e){
                 e.stopPropagation();
                 e.preventDefault();
                 var curPage = $(e.target), direction = touches.direction,
-                        disX = touches.disX, disY = touches.disY, index = pages.index(curPage),
+                        disX = touches.disX,
+                        disY = touches.disY,
+                        index = pages.index(curPage),
                         nextPage, prevPage, endX, endY, endNX, endNY;
 
                 switch (direction){
@@ -219,7 +219,6 @@
                     prevPage.removeClass('transition');
                     prevPage=null;
                 });
-
             });
         });
     </script>
