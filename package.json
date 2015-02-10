@@ -22,5 +22,10 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "gulp": "^3.8.10",
     "gulp-sass": "^1.1.0"
+  },
+  "spm": {
+    "dependencies": {
+      "mustache": "1.0.0"
+    }
   }
 }

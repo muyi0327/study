@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>mustache.js模板引擎</title>
+    <script src="/zepto/zepto.js"></script>
+    <script src="mustache.js"></script>
+</head>
+<body>
+<div id="con"></div>
+<script>
+    var view = {
+        title: "Joe",
+        calc: function () {
+            return 2 + 4;
+        }
+    };
+
+    var output = Mustache.render("{{title}} spends {{calc}}", view);
+
+    $('#con').html(output);
+</script>
+</body>
+</html>
