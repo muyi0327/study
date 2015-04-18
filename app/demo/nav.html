@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://libs.useso.com/js/jquery/1.10.0/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            var bodyFrame = top.frames.$('#body')[0].contentWindow;
+
+            function bindEvents(){
+                bodyFrame.$('button').click(function(){
+                    bodyFrame.location.href = 'http://www.baidu.com';
+                });
+            }
+
+//            if (bodyFrame.attachEvent){
+//                bodyFrame.attachEvent('onload', bindEvents);
+//            }else if (bodyFrame.addEventListener){
+//                bodyFrame.addEventListener('load', bindEvents, false);
+//            }else {
+//                bodyFrame.onload = bindEvents;
+//            }
+
+            $(bodyFrame).on('load', bindEvents);
+        });
+    </script>
+</head>
+<body>
+<ul>
+    <li>aaa</li>
+    <li>bbb</li>
+    <li>ccc</li>
+</ul>
+</body>
+</html>
