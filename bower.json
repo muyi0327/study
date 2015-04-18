@@ -20,6 +20,7 @@
     "page.js": "~1.5.0",
     "pathtoregexp": "~1.0.3",
     "react": "~0.12.2",
-    "jquery": "1.9.1"
+    "jquery": "1.9.1",
+    "webcomponents.js": "~0.6.1"
   }
 }

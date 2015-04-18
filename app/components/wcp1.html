@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>web components</title>
+    <script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+<my-element />
+<script>
+    var MyElement = document.registerElement('my-element', {
+        prototype: Object.create(HTMLElement.prototype, {
+            createdCallback: {
+                value: function () {
+                    var shadow = this.createShadowRoot();
+                    shadow.innerHTML = '<h1>SHADOW DOM!</h1>';
+                }
+            }
+        })
+    });
+</script>
+</body>
+</html>

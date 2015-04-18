@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    "use strict";
+    globalVar = "xuelipi.com"; // Uncaught ReferenceError: globalVar is not defined
+</script>
+
+<script>
+    (function () {
+        "use strict";
+        globalVar1 = "xuelipi.com"; // Uncaught ReferenceError: globalVar1 is not defined
+    }());
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    // 严格模式
+    "use strict";
+    var mod = {
+        name: 'xuelipi'
+    };
+    with (mod) {
+        console.log(name);
+    }
+</script>
+
+<script>
+    // 正常模式
+    var mod1 = {
+        name: 'xuelipi'
+    };
+    with (mod1) {
+        console.log(name);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="xtag/x-tag-components.css"/>
+    <script src="xtag/x-tag-components.js"></script>
+</head>
+<body>
+<script>
+    xtag.register('x-superinput', {
+        lifecycle: {
+            created: function(){
+                // superinputs begin life knowing they're super.
+                this.value = 'super';
+                this.innerHTML = 'default content is ' + this.value;
+            },
+            inserted: function(){
+                // superinputs announce their arrival in the DOM like a boss!
+                alert("Yeah, that's right, superinput comin' thro'!" + this.value);
+            }
+        }
+    });
+
+    var superinput = document.createElement('x-superinput');
+    document.body.appendChild(superinput);
+</script>
+
+</body>
+</html>

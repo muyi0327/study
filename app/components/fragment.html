@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var dfm = document.createDocumentFragment();
+    var p = document.createElement('p');
+
+    for (var i= 0; i<5; i++){
+        var span = document.createElement('span');
+        span.innerHTML = 'item' + i;
+        dfm.appendChild(span);
+    }
+
+    p.innerHTML =dfm;
+
+    document.body.appendChild(p);
+</script>
+</body>
+</html>
