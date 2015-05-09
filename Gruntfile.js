@@ -7,11 +7,9 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    mainConfigFile: 'app/amd/build.js',
                     baseUrl: "app/amd",
-                    name: "main",
-                    include: ['build'],
-                    out: 'dist/js/main.min.js'
+                    include: ['build', 'base/common', 'module/view', 'util/date'],
+                    out: 'app/dist/js/main.min.js'
                 }
             }
         }

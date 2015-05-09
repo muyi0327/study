@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <title></title>
     <script src="../scripts/react.min.js"></script>
-    <script src="../scripts/JSXTransformer.js"></script>
+
 </head>
 <body>
 <div id="content"></div>
 <script>
-    var CommentBox = React.createClass({displayName: 'CommentBox',
-        render: function() {
+    var CommentBox = React.createClass({
+        displayName: 'CommentBox',
+        render: function () {
             return (
                     React.createElement('div', {className: "commentBox"},
                             "Hello, world! I am a CommentBox."

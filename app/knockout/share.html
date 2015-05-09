@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="knockout.js"></script>
+</head>
+<body>
+<c2c-share paras="" weibo="abc" wechat="123"></c2c-share>
+
+<script>
+    ko.components.register('c2c-share', {
+        viewModel : function(){
+            console.log(arguments);
+            this.weibo = 'weibo';
+            this.wechat = 'wechat';
+            this.weiboId = '123';
+        },
+        template :
+                '<div class="c2c-share">\
+                    <p class="c2c-share-weibo" data-bind="text:weibo,attr : {href : weiboId}"></p>\
+                    <p class="c2c-share-wechat" data-bind="text:wechat"></p>\
+                </div>'
+    });
+    ko.applyBindings();
+</script>
+</body>
+</html>

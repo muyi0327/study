@@ -19,8 +19,10 @@
     "zepto": "~1.1.6",
     "page.js": "~1.5.0",
     "pathtoregexp": "~1.0.3",
-    "react": "~0.12.2",
     "jquery": "1.9.1",
-    "webcomponents.js": "~0.6.1"
+    "webcomponents.js": "~0.6.1",
+    "knockout": "~3.3.0",
+    "requirejs": "~2.1.17",
+    "react": "~0.13.2"
   }
 }
