@@ -3,11 +3,11 @@
  */
 var express = require('express');
 var router = express.Router();
-var User = require('../modules/user');
+//var User = require('../modules/user');
 
-var user = new User;
+//var user = new User;
 
-router.use(user.checkLogin);
+//router.use(user.checkLogin);
 
 router.get('/', function(req, res, next){
     res.send('article routes!');

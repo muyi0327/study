@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="">
+
+</form>
+<script>
+    var data = new FormData();
+    data.append('a', 'hello world!');
+    data.append('b', 123);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:3000/fd.ac', true);
+    xhr.send(data);
+</script>
+</body>
+</html>
