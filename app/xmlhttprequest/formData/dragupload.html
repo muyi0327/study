@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            border:4px dashed #c66;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 300px;
+            width: 400px;
+            margin: 50px auto;
+        }
+
+        .mask{
+            background: rgba(0,0,0,0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+
+        .progress{
+            width: 0;
+            height: 0;
+            line-height: 0;
+            font-size: 0;
+            border-bottom: 10px dashed greenyellow;
+            position: absolute;
+            z-index: 10001;
+            top: 50%;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+
+<div class="mask">
+    <p class="progress"></p>
+</div>
+
+<script>
+    var box = document.querySelector('.box');
+    var mask = document.querySelector('.mask');
+    var progress = document.querySelector('.progress');
+
+    box.addEventListener('dragover', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+    }, false);
+
+    box.addEventListener('drop', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        send(e.dataTransfer.files);
+    }, false);
+
+    function send(files){
+        if (!files || !files.length){
+            return;
+        }
+
+        var formData = new FormData(),
+                xhr = new XMLHttpRequest();
+
+        for (var i= 0,len=files.length; i<len; i++){
+            formData.append('file_' + i, files[i]);
+            formData.append('filename', 'file_'+i);
+        }
+
+        xhr.upload.addEventListener('loadstart', function(){
+            mask.style.display = 'block';
+        }, false);
+
+        xhr.upload.addEventListener('loadstart', function(){
+            mask.style.display = 'block';
+        }, false);
+
+        xhr.upload.addEventListener('loadend', function(){
+            mask.style.display = 'none';
+            progress.style.width = 0;
+        }, false);
+
+        xhr.upload.addEventListener('progress', function(e){
+            if(e.lengthComputable) {
+                var w = (e.loaded / e.total).toFixed(2) * 100;
+                progress.style.width = Math.ceil(w) + '%';
+            }
+        }, false);
+
+        xhr.open('POST', '/upload/drag', true);
+        xhr.send(formData);
+    }
+</script>
+</body>
+</html>

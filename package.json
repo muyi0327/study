@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/muyi0327/study",
   "devDependencies": {
+    "connect-busboy": "0.0.2",
     "grunt": "^0.4.5",
     "grunt-contrib-requirejs": "^0.4.4",
     "gulp": "^3.8.11",
@@ -28,7 +29,18 @@
     "gulp-sass": "^1.1.0",
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^4.1.1",
-    "imagemin-pngquant": "^4.0.0"
+    "imagemin-pngquant": "^4.0.0",
+    "multer": "^0.1.8",
+    "multipart": "^0.1.5"
+  },
+  "dependencies": {
+    "body-parser": "~1.12.0",
+    "cookie-parser": "~1.3.4",
+    "debug": "~2.1.1",
+    "ejs": "~2.3.1",
+    "express": "~4.12.2",
+    "morgan": "~1.5.1",
+    "serve-favicon": "~2.2.0"
   },
   "spm": {
     "dependencies": {

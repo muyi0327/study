@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../scripts/react.js"></script>
+    <script src="../scripts/JSXTransformer.js"></script>
+    <style>
+        * {
+            padding:0;
+            margin:0;
+        }
+
+        html{
+            font:14px normal Arial, sans-serif;
+            color:#626771;
+            background-color:#fff;
+        }
+
+        body{
+            padding:60px;
+            text-align: center;
+        }
+
+        h1{
+            font-size:18px;
+            margin-bottom:20px;
+        }
+
+        #services{
+            list-style: none;
+            display: inline-block;
+            width: 340px;
+            text-align: left;
+        }
+
+        #services p{
+            display: block;
+            padding: 15px 20px;
+            background-color: #F8F8F8;
+            color: #7B8585;
+            margin-bottom: 3px;
+            position: relative;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        #services p b{
+            position: absolute;
+            right: 28px;
+            line-height: 16px;
+            width: 100px;
+            color: #808787;
+            text-align: right;
+        }
+
+        #services p:hover{
+            background-color:#d8f2f1;
+        }
+
+        #services p.active{
+            color:#fff;
+            background-color:#41c7c2;
+        }
+
+        #services p.active b{
+            color: #fff;
+        }
+
+        #total{
+            background: none !important;
+            cursor: default !important;
+            padding-top: 10px !important;
+        }
+    </style>
+</head>
+<body>
+<script type="text/jsx">
+    /** @jsx React.DOM */
+
+    // This is more complex example that uses two components -
+    // a service chooser form, and the individual services inside it.
+
+    var ServiceChooser = React.createClass({
+
+        getInitialState: function(){
+            return { total: 0 };
+        },
+
+        addTotal: function( price ){
+            this.setState( { total: this.state.total + price } );
+        },
+
+        render: function() {
+
+            var self = this;
+
+            var services = this.props.items.map(function(s){
+
+                // Create a new Service component for each item in the items array.
+                // Notice that I pass the self.addTotal function to the component.
+
+                return <Service name={s.name} price={s.price} active={s.active} addTotal={self.addTotal} />;
+            });
+
+            return <div>
+                <h1>Our services</h1>
+
+                <div id="services">
+                        {services}
+
+                    <p id="total">Total <b>${this.state.total.toFixed(2)}</b></p>
+
+                </div>
+
+            </div>;
+
+        }
+    });
+
+
+    var Service = React.createClass({
+
+        getInitialState: function(){
+            return { active: false };
+        },
+
+        clickHandler: function (){
+
+            var active = !this.state.active;
+
+            this.setState({ active: active });
+
+            // Notify the ServiceChooser, by calling its addTotal method
+            this.props.addTotal( active ? this.props.price : -this.props.price );
+
+        },
+
+        render: function(){
+
+            return  <p className={ this.state.active ? 'active' : '' } onClick={this.clickHandler}>
+                    {this.props.name} <b>${this.props.price.toFixed(2)}</b>
+            </p>;
+
+        }
+
+    });
+
+
+    var services = [
+        { name: 'Web Development', price: 300 },
+        { name: 'Design', price: 400 },
+        { name: 'Integration', price: 250 },
+        { name: 'Training', price: 220 }
+    ];
+
+
+    // Render the ServiceChooser component, and pass the array of services
+
+    React.render(
+            <ServiceChooser items={ services } />,
+            document.body
+    );
+</script>
+</body>
+</html>
